@@ -11,9 +11,10 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarTest();
-            BrandTest();
-            ColorTest();
+            //CarTest();
+            //BrandTest();
+            //ColorTest();
+            AddRentalTest();
         }
 
         private static void CarTest()
@@ -90,6 +91,19 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+
+        private static void AddRentalTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            userManager.Add(new User { Id = 10, FirstName = "User", LastName = "Name", Email = "a@a.com", Password="12345" });
+            customerManager.Add(new Customer { CustomerId = 8, UserId = 10, CompanyName = "XYZ" });
+            rentalManager.Add(new Rental { RentalId = 8, CarId = 5, CustomerId = 10, RentDate = "22.02.2021", ReturnDate = "23.02.2021"  });
+        }
+
+        
 
     }
 }
