@@ -23,6 +23,8 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        //[LogAspect] // AOP Yapısı
+        //[Validate]
         public IResult Add(Car car)
         {
             _carDal.Add(car);

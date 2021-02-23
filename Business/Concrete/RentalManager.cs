@@ -48,5 +48,6 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.MessageListed);
         }
+
     }
 }
