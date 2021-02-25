@@ -50,6 +50,8 @@ namespace Business.Concrete
 
         public IResult Update(CarImage carImage)
         {
+            carImage.ImageDate = DateTime.Now;
+
             _carImageDal.Update(carImage);
 
             return new SuccessResult(Messages.CarImageUpdated);
