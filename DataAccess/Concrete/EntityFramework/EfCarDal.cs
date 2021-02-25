@@ -25,12 +25,31 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarName = c.CarName,
                                  BrandName = b.BrandName,
                                  ColorName = clr.ColorName,
-                                 DailyPrice = c.DailyPrice,
+                                 DailyPrice = c.DailyPrice
                              };
 
                 return result.ToList();
             }
-            
+
+        }
+
+
+        public List<CarImagesDto> GetCarImages(int carId)
+        {
+            using (DatabaseContext context = new DatabaseContext())
+            {
+                var result = from c in context.Cars
+                             join img in context.CarImages on c.Id equals img.CarId
+                             where img.CarId == carId
+                             select new CarImagesDto
+                             {
+                                 Id = c.Id,
+                                 CarName = c.CarName,
+                                 ImagePath = img.ImagePath
+                             };
+
+                return result.ToList();
+            }
         }
     }
 }

@@ -38,12 +38,14 @@ namespace Business.Concrete
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+
             return new SuccessResult(Messages.CarDeleted);
         }
 
         public IResult Update(Car car)
         {
             _carDal.Update(car);
+
             return new SuccessResult(Messages.CarUpdated);
         }
 
@@ -68,6 +70,11 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<List<CarImagesDto>> GetCarImages(int carId)
+        {
+            return new SuccessDataResult<List<CarImagesDto>>(_carDal.GetCarImages(carId));
         }
 
     }

@@ -47,3 +47,12 @@ CREATE TABLE Rentals (
     FOREIGN KEY (CarId) REFERENCES Cars(Id),
     FOREIGN KEY (CustomerId) REFERENCES Customers(UserId)
 );
+
+CREATE TABLE CarImages (
+    CarImageId int NOT NULL,
+    CarId int NOT NULL,
+    ImagePath varchar(255) NOT NULL,
+    ImageDate datetime DEFAULT GETDATE(),
+    CONSTRAINT PK_CarImages PRIMARY KEY (CarImageId),
+    FOREIGN KEY (CarId) REFERENCES Cars(Id)
+);

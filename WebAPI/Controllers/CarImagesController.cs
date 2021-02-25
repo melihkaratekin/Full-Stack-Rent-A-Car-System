@@ -13,25 +13,24 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerBase
+    public class CarImagesController : ControllerBase
     {
         // IoC = Inversion of Control
         // IoC, bellekte bir container olarak düşün.
         // Bu container'da Servislerin new'lenmiş halleri var.
-        // CarService kullandığın anda bu container'a gidiliyor.
+        // CarImageService kullandığın anda bu container'a gidiliyor.
         // Oradaki new objesi kullanılıyor.
-        ICarService _carService;
+        ICarImageService _carimageService;
 
-        public CarsController(ICarService carService)
+        public CarImagesController(ICarImageService carimageService)
         {
-            _carService = carService;
+            _carimageService = carimageService;
         }
-
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carService.GetAll();
+            var result = _carimageService.GetAll();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -42,26 +41,10 @@ namespace WebAPI.Controllers
             }
         }
 
-
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _carService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            } 
-        }
-
-
-        [HttpGet("getcarimages")]
-        public IActionResult GetCarImages(int id)
-        {
-            var result = _carService.GetCarImages(id);
+            var result = _carimageService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -74,10 +57,10 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(CarImage carImage)
         {
-            var result = _carService.Add(car);
-            
+            var result = _carimageService.Add(carImage);
+
             if (result.Success)
             {
                 return Ok(result);
@@ -90,9 +73,9 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(CarImage carImage)
         {
-            var result = _carService.Delete(car);
+            var result = _carimageService.Delete(carImage);
 
             if (result.Success)
             {
@@ -106,9 +89,9 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update(CarImage carImage)
         {
-            var result = _carService.Update(car);
+            var result = _carimageService.Update(carImage);
 
             if (result.Success)
             {
