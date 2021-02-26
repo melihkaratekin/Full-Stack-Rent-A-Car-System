@@ -43,6 +43,15 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
+            var image = _carImageDal.Get(c => c.CarImageId == carImage.CarImageId);
+            
+            if (image == null)
+            {
+                return new ErrorResult(Messages.CarImageNotFound);
+            }
+
+            File.Delete(image.ImagePath);
+
             _carImageDal.Delete(carImage);
 
             return new SuccessResult(Messages.CarImageDeleted);
@@ -50,6 +59,18 @@ namespace Business.Concrete
 
         public IResult Update(CarImage carImage)
         {
+            var image = _carImageDal.Get(c => c.CarImageId == carImage.CarImageId);
+
+            if (image == null)
+            {
+                return new ErrorResult(Messages.CarImageNotFound);
+            }
+
+            File.Delete(image.ImagePath);
+
+            string newImagePath = CreateImagePath(carImage.CarId);
+            File.Copy(carImage.ImagePath, newImagePath);
+            carImage.ImagePath = newImagePath;
             carImage.ImageDate = DateTime.Now;
 
             _carImageDal.Update(carImage);
@@ -72,7 +93,7 @@ namespace Business.Concrete
         private string CreateImagePath(int carId)
         {
             string guidKey = Guid.NewGuid().ToString();
-            return ImagePath.UploadImagePath + guidKey + ".jpg";
+            return ImagePath.UploadImagePath + carId + guidKey + ".jpg";
         }
 
 

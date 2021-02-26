@@ -22,7 +22,7 @@ namespace Business.Constants
         public static string CarImageDeleted = "Car image deleted.";
         public static string CarImageUpdated = "Car image updated.";
         public static string CarImageNumberError = "A car cannot have more than 5 images.";
-
+        public static string CarImageNotFound = "Car image not found";
         // Brand Messages 
         public static string BrandAdded = "Brand added.";
         public static string BrandDeleted = "Brand deleted.";
