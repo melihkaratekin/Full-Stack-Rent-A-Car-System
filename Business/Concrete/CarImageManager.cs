@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Utilities.BusinessRules;
 using System.IO;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -32,9 +33,8 @@ namespace Business.Concrete
                 return result;
             }
 
-            string newImagePath = CreateImagePath(carImage.CarId);
-            File.Copy(carImage.ImagePath, newImagePath);
-            carImage.ImagePath = newImagePath;
+            carImage.ImagePath = CreateImagePathAndSaveImage(carImage.ImagePath);
+            carImage.ImageDate = DateTime.Now;
 
             _carImageDal.Add(carImage);
 
@@ -68,9 +68,7 @@ namespace Business.Concrete
 
             File.Delete(image.ImagePath);
 
-            string newImagePath = CreateImagePath(carImage.CarId);
-            File.Copy(carImage.ImagePath, newImagePath);
-            carImage.ImagePath = newImagePath;
+            carImage.ImagePath = CreateImagePathAndSaveImage(carImage.ImagePath);
             carImage.ImageDate = DateTime.Now;
 
             _carImageDal.Update(carImage);
@@ -89,13 +87,24 @@ namespace Business.Concrete
         }
 
 
-        // Image Path GUID Code
-        private string CreateImagePath(int carId)
+        // Create Image Path and Save Image Method
+        private string CreateImagePathAndSaveImage(string imagePath)
         {
-            string guidKey = Guid.NewGuid().ToString();
-            return ImagePath.UploadImagePath + carId + guidKey + ".jpg";
-        }
+            string newImagePath;
+            
+            if (imagePath == null)
+            {
+                newImagePath = ImagePath.DefaultImagePath;
+            }
+            else
+            {
+                string guidKey = Guid.NewGuid().ToString();
+                newImagePath = ImagePath.UploadImagePath + guidKey + ".jpg";
+                File.Copy(imagePath, newImagePath);
+            }
 
+            return newImagePath;
+        }
 
         // Business Rules Methods
         private IResult CheckCarImageCount(int carId)
@@ -106,5 +115,7 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
+
     }
 }
