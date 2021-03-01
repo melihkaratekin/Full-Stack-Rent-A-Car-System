@@ -1,5 +1,5 @@
 ﻿CREATE TABLE Cars (
-    Id int NOT NULL,
+    Id int NOT NULL IDENTITY,
     BrandId int NOT NULL,
     ColorId int NOT NULL,
     CarName varchar(255) NOT NULL,
@@ -10,35 +10,37 @@
 );
 
 CREATE TABLE Brands (
-    BrandId int NOT NULL,
+    BrandId int NOT NULL IDENTITY,
     BrandName varchar(255) NOT NULL,
     CONSTRAINT PK_Brands PRIMARY KEY (BrandId)
 );
 
 CREATE TABLE Colors (
-    ColorId int NOT NULL,
+    ColorId int NOT NULL IDENTITY,
     ColorName varchar(255) NOT NULL,
     CONSTRAINT PK_Colors PRIMARY KEY (ColorId)
 );
 
 CREATE TABLE Users (
-    Id int NOT NULL,
+    Id int NOT NULL IDENTITY,
     FirstName varchar(255) NOT NULL,
     LastName varchar(255) NOT NULL,
     Email varchar(255) NOT NULL,
-    Password varchar(255) NOT NULL,
+    PasswordSalt varbinary(500) NOT NULL,
+    PasswordHash varbinary(500) NOT NULL,
+    Status bit NOT NULL,
     CONSTRAINT PK_Users PRIMARY KEY (Id)
 );
 
 CREATE TABLE Customers (
-    UserId int NOT NULL,
+    UserId int NOT NULL IDENTITY,
     CompanyName varchar(255) NOT NULL,
     CONSTRAINT PK_Customers PRIMARY KEY (UserId),
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
 
 CREATE TABLE Rentals (
-    RentalId int NOT NULL,
+    RentalId int NOT NULL IDENTITY,
     CarId int NOT NULL,
     CustomerId int NOT NULL,
     RentDate varchar(255) NOT NULL,
@@ -49,7 +51,7 @@ CREATE TABLE Rentals (
 );
 
 CREATE TABLE CarImages (
-    CarImageId int NOT NULL,
+    CarImageId int NOT NULL IDENTITY,
     CarId int NOT NULL,
     ImagePath varchar(255) NOT NULL,
     ImageDate datetime DEFAULT GETDATE(),
