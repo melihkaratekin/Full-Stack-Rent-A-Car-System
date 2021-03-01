@@ -14,6 +14,7 @@ using Business.Constants;
 using Core.CrossCuttingConcerns.Validation;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -28,6 +29,7 @@ namespace Business.Concrete
 
         // AOP Yapısı
         [ValidationAspect(typeof(CarValidator))]
+        //[SecuredOperation("Car.Add")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);

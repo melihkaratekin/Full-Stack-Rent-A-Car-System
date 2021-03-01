@@ -8,8 +8,17 @@ namespace Business.Constants
     {
         // Common Messages
         public static string MaintenanceTime = "The system is in maintenance.";
-        public static string MessageListed = "Listed";
-        public static string MessageNotListed = "Not listed";
+        public static string MessageListed = "Listed.";
+        public static string MessageNotListed = "Not listed.";
+
+        // JWT Authentication Messages
+        public static string TokenCreated = "Token created.";
+        public static string AuthorizationDenied = "Authorization denied.";
+        public static string LoginSuccessful = "Login successful.";
+        public static string Registered = "Registered.";
+        public static string UserAlreadyExists = "User already exists.";
+        public static string UserNotFound = "User not found.";
+        public static string WrongPassword = "Wrong password.";
 
         // Car Messages
         public static string CarAdded = "Car added.";

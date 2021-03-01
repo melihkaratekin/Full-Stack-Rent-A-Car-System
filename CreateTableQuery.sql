@@ -56,3 +56,18 @@ CREATE TABLE CarImages (
     CONSTRAINT PK_CarImages PRIMARY KEY (CarImageId),
     FOREIGN KEY (CarId) REFERENCES Cars(Id)
 );
+
+CREATE TABLE OperationClaims (
+    OCId int NOT NULL IDENTITY,
+    OCName varchar(255) NOT NULL,
+    CONSTRAINT PK_OperationClaims PRIMARY KEY (OCId)
+);
+
+CREATE TABLE UserOperationClaims (
+    UOCId int NOT NULL IDENTITY,
+    OCId int NOT NULL,
+    UserId int NOT NULL,
+    CONSTRAINT PK_UserOperationClaims PRIMARY KEY (UOCId),
+    FOREIGN KEY (OCId) REFERENCES OperationClaims(OCId),
+    FOREIGN KEY (UserId) REFERENCES Users(Id)
+);
