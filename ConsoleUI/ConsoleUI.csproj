@@ -6,12 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <Compile Remove="DependencyResolvers\**" />
+    <EmbeddedResource Remove="DependencyResolvers\**" />
+    <None Remove="DependencyResolvers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DependencyResolvers\" />
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspect.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
@@ -13,15 +16,20 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
+
+
         IUserDal _userDal;
+
 
         public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
         }
 
-        // AOP Yapısı
+
+        [SecuredOperation("admin,user.add")]
         [ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(User user)
         {
             _userDal.Add(user);
@@ -29,6 +37,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserAdded);
         }
 
+
+        [SecuredOperation("admin,user.delete")]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
@@ -36,6 +47,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserDeleted);
         }
 
+
+        [SecuredOperation("admin,user.update")]
+        [ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {
             _userDal.Update(user);
@@ -43,6 +58,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserUpdated);
         }
 
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<User>> GetAll()
         {
             if (DateTime.Now.Hour == 22)
@@ -51,6 +69,15 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.MessageListed);
         }
+
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<User> GetById(int userId)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
+        }
+
 
         public IDataResult<User> GetByEmail(string email)
         {
@@ -66,9 +93,12 @@ namespace Business.Concrete
             }
         }
 
+
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
+
+
     }
 }

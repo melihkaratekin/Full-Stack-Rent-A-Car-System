@@ -11,19 +11,28 @@ using System.Text;
 using Core.Utilities.BusinessRules;
 using System.IO;
 using System.Linq;
+using Business.BusinessAspects.Autofac;
+using Core.Aspect.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 
 namespace Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
+
+
         ICarImageDal _carImageDal;
+
 
         public CarImageManager(ICarImageDal carimageDal)
         {
             _carImageDal = carimageDal;
         }
 
+
+        [SecuredOperation("admin,carimage.add")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImage carImage)
         {
             var result = BusinessRules.Run(CheckCarImageCount(carImage.CarId));
@@ -41,6 +50,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageAdded);
         }
 
+
+        [SecuredOperation("admin,carimage.delete")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             var image = _carImageDal.Get(c => c.CarImageId == carImage.CarImageId);
@@ -57,6 +69,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageDeleted);
         }
 
+
+        [SecuredOperation("admin,carimage.update")]
+        [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(CarImage carImage)
         {
             var image = _carImageDal.Get(c => c.CarImageId == carImage.CarImageId);
@@ -76,11 +92,17 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageUpdated);
         }
 
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.MessageListed);
         }
 
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<CarImage> GetById(int carImageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(ci => ci.CarImageId == carImageId));
