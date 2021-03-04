@@ -15,61 +15,14 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        // IoC = Inversion of Control
-        // IoC, bellekte bir container olarak düşün.
-        // Bu container'da Servislerin new'lenmiş halleri var.
-        // CarService kullandığın anda bu container'a gidiliyor.
-        // Oradaki new objesi kullanılıyor.
+
+
         ICarService _carService;
+
 
         public CarsController(ICarService carService)
         {
             _carService = carService;
-        }
-
-
-        [HttpGet("getall")]
-        public IActionResult GetAll()
-        {
-            var result = _carService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            else
-            {
-                return BadRequest(result.Message);
-            }
-        }
-
-
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
-        {
-            var result = _carService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            } 
-        }
-
-
-        [HttpGet("getcarimages")]
-        public IActionResult GetCarImages(int id)
-        {
-            var result = _carService.GetCarImages(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
         }
 
 
@@ -119,5 +72,67 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
             }
         }
+
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var result = _carService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int carId)
+        {
+            var result = _carService.GetById(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+
+        [HttpGet("getcardetails")]
+        public IActionResult GetCarDetails()
+        {
+            var result = _carService.GetCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+
+        [HttpGet("getcarimages")]
+        public IActionResult GetCarImages(int carId)
+        {
+            var result = _carService.GetCarImages(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+
     }
 }

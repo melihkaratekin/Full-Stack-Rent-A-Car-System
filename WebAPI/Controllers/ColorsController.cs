@@ -13,7 +13,10 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ColorsController : ControllerBase
     {
+
+
         IColorService _colorService;
+
 
         public ColorsController(IColorService colorService)
         {
@@ -65,6 +68,39 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
             }
         }
+
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var result = _colorService.GetAll();
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int colorId)
+        {
+            var result = _colorService.GetById(colorId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }  
+        }
+
 
     }
 }
