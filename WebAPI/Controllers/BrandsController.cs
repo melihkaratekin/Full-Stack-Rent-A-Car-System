@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
         public IActionResult Add(Brand brand)
         {
             var result = _brandService.Add(brand);
+
             if (result.Success)
             {
                 return Ok(result);
@@ -45,6 +46,7 @@ namespace WebAPI.Controllers
         public IActionResult Delete(Brand brand)
         {
             var result = _brandService.Delete(brand);
+
             if (result.Success)
             {
                 return Ok(result);
@@ -60,6 +62,7 @@ namespace WebAPI.Controllers
         public IActionResult Update(Brand brand)
         {
             var result = _brandService.Update(brand);
+
             if (result.Success)
             {
                 return Ok(result);

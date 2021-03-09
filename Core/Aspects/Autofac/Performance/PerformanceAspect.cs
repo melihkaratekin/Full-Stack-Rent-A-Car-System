@@ -11,8 +11,10 @@ namespace Core.Aspects.Autofac.Performance
 {
     public class PerformanceAspect : MethodInterception
     {
-        private int _interval;
-        private Stopwatch _stopwatch;
+        
+        private int _interval;          // Eşik değeri olan süreyi tutan değişken.
+        private Stopwatch _stopwatch;   // Kronometre değişkeni.
+
 
         public PerformanceAspect(int interval)
         {
@@ -20,12 +22,13 @@ namespace Core.Aspects.Autofac.Performance
             _stopwatch = ServiceTool.ServiceProvider.GetService<Stopwatch>();
         }
 
-
+        // İlgili metot işleme koyulmadan önce kronometreyi başlatan metot.
         protected override void OnBefore(IInvocation invocation)
         {
             _stopwatch.Start();
         }
 
+        // İlgili metodun işlemi bittikten sonra kronometreyi durduran ve eşik değerinden büyükse bunu bildiren metot.
         protected override void OnAfter(IInvocation invocation)
         {
             if (_stopwatch.Elapsed.TotalSeconds > _interval)

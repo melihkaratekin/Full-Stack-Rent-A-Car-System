@@ -20,6 +20,8 @@ namespace Core.Aspect.Autofac.Caching
             _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
         }
 
+        // Ekleme, silme, güncelleme vb. gibi işlemlerde veri değiştiği için
+        // OnSuccess olduğunda yani bu işlemler başarıyla sonuçlandığında veriyi cache'den sileriz.
         protected override void OnSuccess(IInvocation invocation)
         {
             _cacheManager.RemoveByPattern(_pattern);

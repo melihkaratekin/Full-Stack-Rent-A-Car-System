@@ -78,6 +78,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             var result = _carService.GetAll();
+
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -93,6 +94,7 @@ namespace WebAPI.Controllers
         public IActionResult GetById(int carId)
         {
             var result = _carService.GetById(carId);
+
             if (result.Success)
             {
                 return Ok(result);
@@ -108,6 +110,7 @@ namespace WebAPI.Controllers
         public IActionResult GetCarDetails()
         {
             var result = _carService.GetCarDetails();
+
             if (result.Success)
             {
                 return Ok(result);
@@ -123,6 +126,7 @@ namespace WebAPI.Controllers
         public IActionResult GetCarImages(int carId)
         {
             var result = _carService.GetCarImages(carId);
+
             if (result.Success)
             {
                 return Ok(result);

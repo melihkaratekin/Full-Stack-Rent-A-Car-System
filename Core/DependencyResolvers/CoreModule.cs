@@ -21,7 +21,7 @@ namespace Core.DependencyResolvers
             serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
             serviceCollection.AddMemoryCache();
 
-            //serviceCollection.AddSingleton<Stopwatch>();
+            serviceCollection.AddSingleton<Stopwatch>();
         }
     }
 }

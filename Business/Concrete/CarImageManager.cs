@@ -14,6 +14,8 @@ using System.Linq;
 using Business.BusinessAspects.Autofac;
 using Core.Aspect.Autofac.Caching;
 using Core.Aspects.Autofac.Performance;
+using Microsoft.AspNetCore.Http;
+using Core.Utilities.Helpers;
 
 namespace Business.Concrete
 {
@@ -33,7 +35,7 @@ namespace Business.Concrete
         [SecuredOperation("admin,carimage.add")]
         [ValidationAspect(typeof(CarImageValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
-        public IResult Add(CarImage carImage)
+        public IResult Add(CarImage carImage, IFormFile file)
         {
             var result = BusinessRules.Run(CheckCarImageCount(carImage.CarId));
             
@@ -42,9 +44,9 @@ namespace Business.Concrete
                 return result;
             }
 
-            carImage.ImagePath = CreateImagePathAndSaveImage(carImage.ImagePath);
             carImage.ImageDate = DateTime.Now;
-
+            carImage.ImagePath = FileHelper.AddFile(file);
+            
             _carImageDal.Add(carImage);
 
             return new SuccessResult(Messages.CarImageAdded);
@@ -62,7 +64,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarImageNotFound);
             }
 
-            File.Delete(image.ImagePath);
+            FileHelper.DeleteFile(image.ImagePath);
 
             _carImageDal.Delete(carImage);
 
@@ -73,19 +75,17 @@ namespace Business.Concrete
         [SecuredOperation("admin,carimage.update")]
         [ValidationAspect(typeof(CarImageValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
-        public IResult Update(CarImage carImage)
+        public IResult Update(CarImage carImage, IFormFile file)
         {
-            var image = _carImageDal.Get(c => c.CarImageId == carImage.CarImageId);
+            var oldImage = _carImageDal.Get(c => c.CarImageId == carImage.CarImageId);
 
-            if (image == null)
+            if (oldImage == null)
             {
                 return new ErrorResult(Messages.CarImageNotFound);
             }
 
-            File.Delete(image.ImagePath);
-
-            carImage.ImagePath = CreateImagePathAndSaveImage(carImage.ImagePath);
             carImage.ImageDate = DateTime.Now;
+            carImage.ImagePath = FileHelper.UpdateFile(file, oldImage.ImagePath);
 
             _carImageDal.Update(carImage);
 
@@ -108,25 +108,6 @@ namespace Business.Concrete
             return new SuccessDataResult<CarImage>(_carImageDal.Get(ci => ci.CarImageId == carImageId));
         }
 
-
-        // Create Image Path and Save Image Method
-        private string CreateImagePathAndSaveImage(string imagePath)
-        {
-            string newImagePath;
-            
-            if (imagePath == null)
-            {
-                newImagePath = ImagePath.DefaultImagePath;
-            }
-            else
-            {
-                string guidKey = Guid.NewGuid().ToString();
-                newImagePath = ImagePath.UploadImagePath + guidKey + ".jpg";
-                File.Copy(imagePath, newImagePath);
-            }
-
-            return newImagePath;
-        }
 
         // Business Rules Methods
         private IResult CheckCarImageCount(int carId)
