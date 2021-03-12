@@ -1,0 +1,20 @@
+#footer {
+    background: #343a40 !important;
+}
+#footer a {
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+#footer ul.social li{
+	padding: 3px 0;
+}
+#footer ul.social li a i {
+	font-size:25px;
+  color:#ffffff;
+}
+#footer ul.social li:hover a i {
+	font-size:25px;
+  color:#17a2b8;
+}

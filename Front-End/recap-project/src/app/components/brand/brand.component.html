@@ -1,0 +1,14 @@
+<h3>{{title}}</h3>
+
+<table *ngIf="dataLoaded==true" class="table table-bordered">
+    <thead>
+        <th>Brand Id</th>
+        <th>Brand Name</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let brand of brands">
+            <td>{{brand.brandId}}</td>
+            <td>{{brand.brandName}}</td>
+        </tr>
+    </tbody>
+</table>

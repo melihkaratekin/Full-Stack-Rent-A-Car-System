@@ -1,0 +1,21 @@
+<h3>{{title}}</h3>
+
+
+<table *ngIf="dataLoaded==true" class="table table-bordered">
+    <thead>
+        <th>Car Id</th>
+        <th>Car Name</th>
+        <th>Brand Name</th>
+        <th>Color Name</th>
+        <th>Daily Price</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of cars">
+            <td>{{car.carId}}</td>
+            <td>{{car.carName}}</td>
+            <td>{{car.brandName}}</td>
+            <td>{{car.colorName}}</td>
+            <td>{{car.dailyPrice}}</td>
+        </tr>
+    </tbody>
+</table>
