@@ -1,0 +1,49 @@
+<h4 *ngFor="let carDetail of carDetails">{{carDetail.brandName}} - {{carDetail.carName}}</h4>
+
+
+<div id="carImageCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carImageCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#carImageCarousel" data-slide-to="1"></li>
+    <li data-target="#carImageCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <span *ngFor="let carDetail of carDetails">
+      <div *ngFor="let img of carDetail.imagePaths let i=index"
+           [ngClass]="setClassName(i)">
+
+        <img class="d-block w-100" src="{{img.imagePath}}">
+
+      </div>
+    </span>
+  </div>
+  <a class="carousel-control-prev" href="#carImageCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carImageCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
+<table *ngIf="dataLoaded==true" class="table table-bordered">
+    <thead>
+        <th>Car Id</th>
+        <th>Car Name</th>
+        <th>Brand Name</th>
+        <th>Color Name</th>
+        <th>Daily Price</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let carDetail of carDetails">
+            <td>{{carDetail.carId}}</td>
+            <td>{{carDetail.carName}}</td>
+            <td>{{carDetail.brandName}}</td>
+            <td>{{carDetail.colorName}}</td>
+            <td>{{carDetail.dailyPrice}}</td>
+        </tr>
+    </tbody>
+</table>

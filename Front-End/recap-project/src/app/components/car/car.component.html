@@ -1,7 +1,8 @@
-<h3>{{title}}</h3>
+<h4>{{title}}</h4>
 
 
-<table *ngIf="dataLoaded==true" class="table table-bordered">
+<table class="table table-bordered"
+       *ngIf="dataLoaded==true">
     <thead>
         <th>Car Id</th>
         <th>Car Name</th>
@@ -10,7 +11,8 @@
         <th>Daily Price</th>
     </thead>
     <tbody>
-        <tr *ngFor="let car of cars">
+        <tr *ngFor="let car of cars"
+            routerLink="/cars/car-detail/{{car.carId}}">
             <td>{{car.carId}}</td>
             <td>{{car.carName}}</td>
             <td>{{car.brandName}}</td>

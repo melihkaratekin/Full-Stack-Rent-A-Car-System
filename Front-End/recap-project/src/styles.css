@@ -3,8 +3,22 @@
   padding-bottom: 60px;
 }
 
-h3 {
+h4 {
   background-color: #17a2b8;
   color: white;
   text-align: center;
+}
+
+a {
+  color:#17a2b8;
+  font-weight: bold;
+}
+
+a:hover {
+  color:#157d8d;
+  font-weight: bold;
+}
+
+.list-group-item.active {
+  background-color: #17a2b8;
 }

@@ -1,26 +1,49 @@
 <app-navbar></app-navbar>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <app-car></app-car>
+
+    <div class="col-md-3">
+
+      <h4>Filter Options</h4>
+
+        <div id="accordion">
+
+          <div class="card">
+            <div class="card-header">
+              <a class="collapsed card-link" data-toggle="collapse" href="#collapseOne">
+                Filter by Brand
+              </a>
+            </div>
+            <div id="collapseOne" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                <app-brand></app-brand>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                Filter by Color
+              </a>
+            </div>
+            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                <app-color></app-color>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <app-rental></app-rental>
+
+    <div class="col-md-9">
+      <router-outlet></router-outlet>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <app-brand></app-brand>
-    </div>
-    <div class="col-md-4">
-      <app-color></app-color>
-    </div>
-    <div class="col-md-4">
-      <app-customer></app-customer>
-    </div>
+
   </div>
 </div>
+
 <app-footer></app-footer>
-<router-outlet></router-outlet>

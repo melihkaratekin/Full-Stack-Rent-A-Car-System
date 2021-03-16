@@ -83,21 +83,32 @@ namespace Business.Concrete
 
         [CacheAspect]
         [PerformanceAspect(5)]
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails(int carId)
         {
-            if (DateTime.Now.Hour == 22)
+            if(carId == 0)
             {
-                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+                return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
             }
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.CarId == carId));
+            }
         }
 
 
         [CacheAspect]
         [PerformanceAspect(5)]
-        public IDataResult<List<CarImagesDto>> GetCarImages(int carId)
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrand(int brandId)
         {
-            return new SuccessDataResult<List<CarImagesDto>>(_carDal.GetCarImages(carId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == brandId));
+        }
+
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColor(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId));
         }
 
 

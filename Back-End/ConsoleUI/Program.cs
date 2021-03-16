@@ -24,7 +24,7 @@ namespace ConsoleUI
             carManager.Update(new Car { Id = 4, BrandId = 2, ColorId = 1, CarName = "B", ModelYear = 2019, DailyPrice = 18000, Description = "TSI" });
             carManager.Delete(new Car { Id = 6 });
             */
-            var result = carManager.GetCarDetails();
+            var result = carManager.GetCarDetails(1);
             
             if(result.Success == true)
             {

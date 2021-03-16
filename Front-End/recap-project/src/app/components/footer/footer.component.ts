@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from 'src/app/models/car';
 
 @Component({
   selector: 'app-footer',
@@ -7,8 +6,6 @@ import { Car } from 'src/app/models/car';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-
-  cars:Car[] = [];
 
   constructor() { }
 
