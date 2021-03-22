@@ -1,0 +1,22 @@
+<div class="dropdown dropleft">
+  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fa" style="font-size:24px">&#xf07a;</i>
+    <span class='badge badge-warning' id='lblCartCount'> {{cartItems.length}} </span>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" *ngFor="let cartItem of cartItems">
+      <div class="row">
+        <div class="col-sm-3">
+          {{ cartItem.car.carName }}
+        </div>
+        <div class="col-sm-3">
+          {{ cartItem.car.dailyPrice | currency: "TRY":true }}
+        </div>
+        <div class="col-sm-3">
+          <span (click)="removeFromCart(cartItem.car)" class="badge bg-danger">Delete</span>
+        </div>
+      </div>
+    </a>
+    <a class="dropdown-item"> <b>View cart</b> </a>
+  </div>
+</div>

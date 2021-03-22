@@ -28,22 +28,67 @@
 </div>
 
 
-
 <table *ngIf="dataLoaded==true" class="table table-bordered">
     <thead>
-        <th>Car Id</th>
-        <th>Car Name</th>
         <th>Brand Name</th>
+        <th>Car Name</th>
+        <th>Model Year</th>
+        <th>Description</th>
         <th>Color Name</th>
         <th>Daily Price</th>
     </thead>
     <tbody>
         <tr *ngFor="let carDetail of carDetails">
-            <td>{{carDetail.carId}}</td>
-            <td>{{carDetail.carName}}</td>
             <td>{{carDetail.brandName}}</td>
+            <td>{{carDetail.carName}}</td>
+            <td>{{carDetail.modelYear}}</td>
+            <td>{{carDetail.description}}</td>
             <td>{{carDetail.colorName}}</td>
-            <td>{{carDetail.dailyPrice}}</td>
+            <td>{{carDetail.dailyPrice | currency: "₺"}}</td>
         </tr>
     </tbody>
 </table>
+
+
+<form #rentalAddForm="ngForm" (ngSubmit)="addRental(rentalAddForm)">
+
+  <div class="form-group w-100">
+      <label><b>Select Rent Date:</b></label>
+      <input type="date" class="form-control"
+      #rentDate="ngModel" [(ngModel)]="rentalModel.rentDate" id="rentdate" name="rentdate" required>
+      <div *ngIf="rentDate.invalid&&rentDate.dirty" class="alert alert-danger">
+          Rental date is required.
+      </div>
+  </div>
+
+  <div class="form-group w-100">
+      <label><b>Select Return Date:</b></label>
+      <input type="date" class="form-control"
+      #returnDate="ngModel" [(ngModel)]="rentalModel.returnDate" id="returndate" name="returndate" required>
+      <div *ngIf="returnDate.invalid&&returnDate.dirty" class="alert alert-danger">
+          Return date is required.
+      </div>
+  </div>
+
+  <div class="row text-center" *ngIf="rentalModel.rentDate && rentalModel.returnDate && carDetails[0].dailyPrice
+                                      ? calculateTotalPrice(rentalModel.rentDate, rentalModel.returnDate, carDetails[0].dailyPrice)
+                                      : null">
+    <div class="col-md-12">
+      <div class="alert alert-info" *ngIf="totalPrice >= 0">
+        <b>Total Price: {{ totalPrice | currency: "₺" }}</b>
+      </div>
+      <div class="alert alert-danger" *ngIf="totalPrice < 0">
+        <b>Please enter a valid date range.</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-success w-100" [disabled]="totalPrice < 0 || rentalAddForm.invalid">
+        Rent The Car
+      </button>
+    </div>
+  </div>
+
+</form>

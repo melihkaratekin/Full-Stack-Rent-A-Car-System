@@ -1,0 +1,30 @@
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #17a2b8;
+    color: #fff;
+    vertical-align: top;
+    margin-left: 5px;
+    margin-top: 5px;
+    padding: 4px;
+}
+
+.fa {
+  color: white;
+}
+
+.fa:hover {
+  color:#17a2b8;
+  text-decoration: none;
+}
+
+.dropdown-menu {
+  min-width: 25rem !important;
+}

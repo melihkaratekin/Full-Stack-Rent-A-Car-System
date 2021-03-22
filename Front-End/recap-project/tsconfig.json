@@ -19,7 +19,8 @@
       "es2018",
       "dom"
     ],
-    "noImplicitReturns": true
+    "noImplicitReturns": false,
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

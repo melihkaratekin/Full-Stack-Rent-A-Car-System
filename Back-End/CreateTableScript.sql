@@ -76,3 +76,15 @@ CREATE TABLE UserOperationClaims (
     FOREIGN KEY (OCId) REFERENCES OperationClaims(OCId),
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
+
+CREATE TABLE Payments (
+    PaymentId int NOT NULL IDENTITY,
+    RentalId int NOT NULL,
+    NameSurname varchar(255) NOT NULL,
+    CardNo varchar(255) NOT NULL,
+    ExpirationDate varchar(255) NOT NULL,
+    Cvc varchar(255) NOT NULL,
+    PaymentDate datetime DEFAULT GETDATE(),
+    CONSTRAINT PK_Payments PRIMARY KEY (PaymentId),
+    FOREIGN KEY (RentalId) REFERENCES Rentals(RentalId)
+);

@@ -56,11 +56,15 @@ namespace Business.Constants
         public static string RentalDeleted = "Rental deleted.";
         public static string RentalUpdated = "Rental updated.";
         public static string RentalNameInvalid = "Rental name is invalid.";
+        public static string CarIsAlreadyRented = "Car is already rented.";
 
         // Customer Messages
         public static string CustomerAdded = "Customer added.";
         public static string CustomerDeleted = "Customer deleted.";
         public static string CustomerUpdated = "Customer updated.";
         public static string CustomerNameInvalid = "Customer name is invalid.";
+
+        // Payment Messages
+        public static string PaymentAdded = "Payment completed successfully.";
     }
 }

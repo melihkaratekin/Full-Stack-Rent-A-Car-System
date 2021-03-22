@@ -1,0 +1,36 @@
+<h4>{{title}}</h4>
+
+<div class="row mb-2">
+
+  <div class="col-sm-12">
+
+      <input type="text" class="form-control" placeholder="Search Brand" [(ngModel)]="brandFilterText"/>
+      <select [(ngModel)]="brandId"  class="form-select w-100">
+          <option *ngFor="let brand of brands | brandFilter:brandFilterText" [value]="brand.brandId" [selected]="getSelectedBrand(brand.brandId)">
+            {{brand.brandName}}
+          </option>
+      </select>
+
+  </div>
+
+  <div class="col-sm-12">
+
+      <input type="text" class="form-control" placeholder="Search Color" [(ngModel)]="colorFilterText"/>
+      <select [(ngModel)]="colorId" class="form-select w-100">
+          <option *ngFor="let color of colors | colorFilter:colorFilterText" [value]="color.colorId" [selected]="getSelectedColor(color.colorId)">
+            {{color.colorName}}
+          </option>
+      </select>
+      <br>
+
+  </div>
+
+  <div class="col-sm-6">
+      <a routerLink="/cars/filter/{{brandId}}/{{colorId}}" class="btn btn-info w-100">Filter</a>
+  </div>
+
+  <div class="col-sm-6">
+      <a routerLink="/cars" class="btn btn-warning w-100">Clear</a>
+  </div>
+
+</div>

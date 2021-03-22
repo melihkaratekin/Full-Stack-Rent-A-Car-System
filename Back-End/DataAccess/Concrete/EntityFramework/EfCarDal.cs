@@ -26,6 +26,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = b.BrandName,
                                  ColorName = clr.ColorName,
                                  DailyPrice = c.DailyPrice,
+                                 ModelYear = c.ModelYear,
+                                 Description = c.Description,
                                  ImagePaths = (from img in context.CarImages
                                                where img.CarId == c.CarId
                                                select new CarImage

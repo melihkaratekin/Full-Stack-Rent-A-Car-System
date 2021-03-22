@@ -1,0 +1,53 @@
+<h3>{{title}}</h3>
+<hr>
+<form #paymentAddForm="ngForm" (ngSubmit)="addPayment(paymentAddForm)">
+
+  <div class="form-group w-100">
+      <label>Name Surname:</label>
+      <input type="text" class="form-control"
+      #nameSurname="ngModel" [(ngModel)]="paymentModel.NameSurname" id="namesurname" name="namesurname" required>
+      <div *ngIf="nameSurname.invalid&&nameSurname.dirty" class="alert alert-danger">
+          Name surname is required.
+      </div>
+  </div>
+
+  <div class="form-group w-100">
+      <label>Card No:</label>
+      <input type="text" class="form-control"
+      #cardNo="ngModel" [(ngModel)]="paymentModel.CardNo" id="cardno" name="cardno" required>
+      <div *ngIf="cardNo.invalid&&cardNo.dirty" class="alert alert-danger">
+          Card no is required.
+      </div>
+  </div>
+
+  <div class="form-group w-100">
+    <label>Expiration Date:</label>
+    <input type="text" class="form-control"
+    #expirationDate="ngModel" [(ngModel)]="paymentModel.ExpirationDate" id="expirationdate" name="expirationdate" required>
+    <div *ngIf="expirationDate.invalid&&expirationDate.dirty" class="alert alert-danger">
+        Expiration date is required.
+    </div>
+  </div>
+
+  <div class="form-group w-100">
+    <label>CVC:</label>
+    <input type="text" class="form-control"
+    #cvc="ngModel" [(ngModel)]="paymentModel.Cvc" id="cvc" name="cvc" required>
+    <div *ngIf="cvc.invalid&&cvc.dirty" class="alert alert-danger">
+        CVC is required.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-info">
+        <b>Total Price: {{ totalPrice | currency: "₺" }}</b>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success w-100" [disabled]="paymentAddForm.invalid">
+      Confirm Payment
+  </button>
+
+</form>

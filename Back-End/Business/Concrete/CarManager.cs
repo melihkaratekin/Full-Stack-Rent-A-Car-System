@@ -112,6 +112,15 @@ namespace Business.Concrete
         }
 
 
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByFilter(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId && c.BrandId == brandId
+                                                                                   ));
+        }
+
+
         [TransactionScopeAspect]
         public IResult AddTransactionalTest(Car car)
         {

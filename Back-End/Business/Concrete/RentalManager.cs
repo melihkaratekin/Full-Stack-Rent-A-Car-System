@@ -5,12 +5,14 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspect.Autofac.Caching;
 using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.BusinessRules;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -28,11 +30,18 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,rental.add")]
+        //[SecuredOperation("admin,rental.add")]
         [ValidationAspect(typeof(RentalValidator))]
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
+            var result = BusinessRules.Run(CarAvailabilityCheck(rental));
+
+            if (result != null)
+            {
+                return result;
+            }
+
             _rentalDal.Add(rental);
 
             return new SuccessResult(Messages.RentalAdded);
@@ -85,6 +94,24 @@ namespace Business.Concrete
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.MessageListed);
+        }
+
+
+        // Business Rules Methods
+        private IResult CarAvailabilityCheck(Rental rental)
+        {
+            var overlappingDateList = _rentalDal.GetRentalDetails(r => r.CarId == rental.CarId
+                                                                  && r.RentDate < rental.ReturnDate
+                                                                  && r.ReturnDate > rental.RentDate);
+
+            if (overlappingDateList.Count() == 0 )
+            {
+                return new SuccessResult();
+            }
+            else
+            {
+                return new ErrorResult(Messages.CarIsAlreadyRented);
+            }
         }
 
 

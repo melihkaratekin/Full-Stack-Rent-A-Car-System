@@ -86,7 +86,9 @@ namespace WebAPI
 
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
+                                                             .AllowAnyMethod()
+                                                             .AllowAnyHeader());
             });
 
         }
@@ -107,7 +109,9 @@ namespace WebAPI
 
             app.UseAuthorization();
 
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyOrigin()
+                                           .AllowAnyMethod()
+                                           .AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

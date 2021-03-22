@@ -1,7 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CarDetail } from 'src/app/models/entities/car-detail';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Car } from 'src/app/models/entities/car';
 import { CarDetailService } from 'src/app/services/car-detail.service';
+import { Rental } from 'src/app/models/entities/rental';
+import { RentalService } from 'src/app/services/rental.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-car-detail',
@@ -10,12 +14,16 @@ import { CarDetailService } from 'src/app/services/car-detail.service';
 })
 export class CarDetailComponent implements OnInit {
 
-  carDetails:CarDetail[] = [];
-  imagePathList:string = "";
+  carDetails:Car[] = [];
+  rentalModel:Rental = new Rental();
   dataLoaded = false;
+  totalPrice:any;
 
   constructor(private carDetailService:CarDetailService,
-              private activatedRoute:ActivatedRoute) { }
+              private rentalService:RentalService,
+              private toastrService:ToastrService,
+              private activatedRoute:ActivatedRoute,
+              private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -25,14 +33,6 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  getCarDetails(carId:number){
-    this.carDetailService.getCarDetails(carId).subscribe(response => {
-      this.carDetails = response.data;
-      console.log(this.carDetails)
-      this.dataLoaded = true;
-    })
-  }
-
   setClassName(index:Number){
     if(index == 0){
       return "carousel-item active";
@@ -40,6 +40,46 @@ export class CarDetailComponent implements OnInit {
     else {
       return "carousel-item";
     }
+  }
+
+  getCarDetails(carId:number){
+    this.carDetailService.getCarDetails(carId).subscribe(response => {
+      this.carDetails = response.data;
+      this.dataLoaded = true;
+    })
+  }
+
+  calculateTotalPrice(rentDate:Date, returnDate:Date, dailyPrice:number) {
+    var startDate = new Date(returnDate);
+    var endDate = new Date(rentDate);
+
+    var differenceBetweenDates = Math.floor((Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+                                            - Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()))
+                                            /(1000 * 60 * 60 * 24));
+
+    if(differenceBetweenDates == 0) {
+      this.totalPrice = dailyPrice;
+    }
+    else {
+      this.totalPrice = differenceBetweenDates * dailyPrice;
+    }
+
+    return this.totalPrice;
+  }
+
+  addRental(form:NgForm) {
+    this.rentalModel.customerId = 1;
+    this.rentalModel.carId = this.carDetails[0].carId;
+    this.calculateTotalPrice(this.rentalModel.rentDate, this.rentalModel.returnDate, this.carDetails[0].dailyPrice)
+    this.rentalService.addRental(this.rentalModel).subscribe(
+      res => {
+        this.toastrService.success("The car is rented. You redirect to payment page.");
+        setTimeout(() => { this.router.navigate(['/payment/' + this.rentalModel.rentalId + "/" + this.totalPrice]); }, 3000);
+      },
+      err => {
+        this.toastrService.error("The car was rented by another customer. Please select another date range.");
+      }
+    )
   }
 
 }

@@ -24,22 +24,22 @@ namespace ConsoleUI
             carManager.Update(new Car { Id = 4, BrandId = 2, ColorId = 1, CarName = "B", ModelYear = 2019, DailyPrice = 18000, Description = "TSI" });
             carManager.Delete(new Car { Id = 6 });
             */
-            var result = carManager.GetCarDetails(1);
+            //var result = carManager.GetCarDetails(1);
             
-            if(result.Success == true)
-            {
-                foreach (var car in result.Data)
-                {
-                    Console.WriteLine("Car Name: " + car.CarName +
-                                "      Car Brand Name: " + car.BrandName +
-                                "      Car Color Name: " + car.ColorName +
-                                "      Car Daily Price: " + car.DailyPrice);
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+            //if(result.Success == true)
+            //{
+            //    foreach (var car in result.Data)
+            //    {
+            //        Console.WriteLine("Car Name: " + car.CarName +
+            //                    "      Car Brand Name: " + car.BrandName +
+            //                    "      Car Color Name: " + car.ColorName +
+            //                    "      Car Daily Price: " + car.DailyPrice);
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
 
         }
 
