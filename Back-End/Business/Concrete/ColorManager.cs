@@ -27,7 +27,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,color.add")]
+        //[SecuredOperation("admin,color.add")]
         [ValidationAspect(typeof(ColorValidator))]
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Add(Color color)
@@ -38,7 +38,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,color.delete")]
+        //[SecuredOperation("admin,color.delete")]
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Delete(Color color)
         {
@@ -48,7 +48,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,color.update")]
+        //[SecuredOperation("admin,color.update")]
         [ValidationAspect(typeof(ColorValidator))]
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Update(Color color)

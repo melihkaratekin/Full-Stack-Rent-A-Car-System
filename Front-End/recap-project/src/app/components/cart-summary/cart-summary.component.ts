@@ -1,8 +1,8 @@
+import { CarDetail } from 'src/app/models/entities/car-detail';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from './../../models/entities/cart-item';
 import { Component, OnInit } from '@angular/core';
-import { Car } from 'src/app/models/entities/car';
 
 @Component({
   selector: 'app-cart-summary',
@@ -24,7 +24,7 @@ export class CartSummaryComponent implements OnInit {
     this.cartItems = this.cartService.listCart();
   }
 
-  removeFromCart(car:Car){
+  removeFromCart(car:CarDetail){
     this.cartService.removeFromCart(car);
     this.toastrService.error(car.carName + " deleted from cart.")
   }

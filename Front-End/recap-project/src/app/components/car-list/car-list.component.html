@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-12" style="text-align:right">
+
+    <button routerLink="/cars/add" class="btn btn-success" style="border-radius: 50px; width: 150px;">Add Car</button>
+
+  </div>
+  <div class="col-md-12">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Car Id</th>
+          <th scope="col">Car Name</th>
+          <th scope="col">Brand Name</th>
+          <th scope="col">Color Name</th>
+          <th scope="col">Model Year</th>
+          <th scope="col">Daily Price</th>
+          <th scope="col">Car Description</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of cars">
+          <td>{{car.carId}}</td>
+          <td>{{car.carName}}</td>
+          <td>{{car.brandId}}</td>
+          <td>{{car.colorId}}</td>
+          <td>{{car.modelYear}}</td>
+          <td>{{car.dailyPrice}}</td>
+          <td>{{car.description}}</td>
+          <td><button routerLink="/cars/update/{{car.carId}}" class="btn btn-warning" style="border-radius: 50px;">Update</button></td>
+          <td><button (click)="deleteCar(car)" class="btn btn-danger" style="border-radius: 50px;">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+

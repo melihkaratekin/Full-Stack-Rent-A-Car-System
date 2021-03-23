@@ -1,7 +1,7 @@
+import { CarDetail } from 'src/app/models/entities/car-detail';
 import { Injectable } from '@angular/core';
 import { CartItems } from './../models/entities/cart-items';
 import { CartItem } from './../models/entities/cart-item';
-import { Car } from './../models/entities/car';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class CartService {
 
   constructor() { }
 
-  addToCart(car:Car) {
+  addToCart(car:CarDetail) {
 
     let item = CartItems.find(c => c.car.carId===car.carId)
 
@@ -26,7 +26,7 @@ export class CartService {
 
   }
 
-  removeFromCart(car:Car){
+  removeFromCart(car:CarDetail){
     let item:any = CartItems.find(c=>c.car.carId===car.carId);
     CartItems.splice(CartItems.indexOf(item),1);
   }

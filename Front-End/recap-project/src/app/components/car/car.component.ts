@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Car } from 'src/app/models/entities/car';
+import { CarDetail } from 'src/app/models/entities/car-detail';
 import { CarService } from 'src/app/services/car.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -12,7 +12,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CarComponent implements OnInit {
 
-  carDetails:Car[] = [];
+  carDetails:CarDetail[] = [];
   dataLoaded = false;
   title = "Car Detail List";
   carFilterText = "";
@@ -34,13 +34,13 @@ export class CarComponent implements OnInit {
         this.getCarsByColor(params["colorId"]);
       }
       else {
-        this.getCars();
+        this.getCarDetails();
       }
     })
   }
 
-  getCars() {
-    this.carService.getCars().subscribe((response)=>{
+  getCarDetails() {
+    this.carService.getCarDetails().subscribe((response)=>{
       this.carDetails = response.data;
       this.dataLoaded = true;
     })
@@ -67,7 +67,7 @@ export class CarComponent implements OnInit {
     })
   }
 
-  addToCart(car:Car) {
+  addToCart(car:CarDetail) {
     if(car) {
       this.cartService.addToCart(car);
       this.toastrService.success(car.carName + " added to cart.")

@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~11.2.5",
     "@angular/router": "~11.2.5",
     "@fortawesome/fontawesome": "^1.1.8",
+    "@ngneat/reactive-forms": "^1.7.2",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",

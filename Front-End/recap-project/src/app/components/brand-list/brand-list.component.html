@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12" style="text-align:right">
+
+    <button routerLink="/brands/add" class="btn btn-success" style="border-radius: 50px; width: 150px;">Add Brand</button>
+
+  </div>
+  <div class="col-md-12">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Brand Id</th>
+          <th scope="col">Brand Name</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let brand of brands">
+          <td>{{brand.brandId}}</td>
+          <td>{{brand.brandName}}</td>
+          <td><button routerLink="/brands/update/{{brand.brandId}}" class="btn btn-warning" style="border-radius: 50px;">Update</button></td>
+          <td><button (click)="deleteBrand(brand)" class="btn btn-danger" style="border-radius: 50px;">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+

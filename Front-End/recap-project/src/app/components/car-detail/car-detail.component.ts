@@ -1,8 +1,8 @@
+import { CarService } from 'src/app/services/car.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Car } from 'src/app/models/entities/car';
-import { CarDetailService } from 'src/app/services/car-detail.service';
+import { CarDetail } from 'src/app/models/entities/car-detail';
 import { Rental } from 'src/app/models/entities/rental';
 import { RentalService } from 'src/app/services/rental.service';
 import { NgForm } from '@angular/forms';
@@ -14,12 +14,12 @@ import { NgForm } from '@angular/forms';
 })
 export class CarDetailComponent implements OnInit {
 
-  carDetails:Car[] = [];
+  carDetails:CarDetail[] = [];
   rentalModel:Rental = new Rental();
   dataLoaded = false;
   totalPrice:any;
 
-  constructor(private carDetailService:CarDetailService,
+  constructor(private carService:CarService,
               private rentalService:RentalService,
               private toastrService:ToastrService,
               private activatedRoute:ActivatedRoute,
@@ -33,7 +33,7 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  setClassName(index:Number){
+  setCarouselClassName(index:Number){
     if(index == 0){
       return "carousel-item active";
     }
@@ -43,7 +43,7 @@ export class CarDetailComponent implements OnInit {
   }
 
   getCarDetails(carId:number){
-    this.carDetailService.getCarDetails(carId).subscribe(response => {
+    this.carService.getCarsById(carId).subscribe(response => {
       this.carDetails = response.data;
       this.dataLoaded = true;
     })

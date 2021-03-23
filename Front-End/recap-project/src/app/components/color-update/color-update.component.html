@@ -1,0 +1,29 @@
+<div class="col-md-12">
+  <div class="card">
+
+    <div class="card-header">
+      <h5 class="card-title text-center">Update Color</h5>
+    </div>
+
+    <div class="card-body">
+
+      <form [formGroup]="colorUpdateForm">
+
+        <div class="mb-3 row">
+          <label for="colorName" class="col-sm-2 col-form-label">Color Name:</label>
+          <div class="col-sm-10">
+            <input type="text" id="colorName" formControlName="colorName" class="form-control"/>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="card-footer">
+      <button class="btn btn-success w-100" (click)="updateColor()">Update</button>
+    </div>
+
+  </div>
+</div>
+

@@ -10,7 +10,7 @@
   <div class="carousel-inner">
     <span *ngFor="let carDetail of carDetails">
       <div *ngFor="let img of carDetail.imagePaths let i=index"
-           [ngClass]="setClassName(i)">
+           [ngClass]="setCarouselClassName(i)">
 
         <img class="d-block w-100" src="{{img.imagePath}}">
 

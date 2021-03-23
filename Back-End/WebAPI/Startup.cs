@@ -38,33 +38,6 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            // AddSingleton<Service, Manager>() Yapýsý
-            // Singleton ile ICarService türünü gördüðünde CarManager'ý new'le diyebiliyoruz.
-            // Bellekte tek bir instance üretiliyor. Tüm kullanýcýlara buradan daðýtýlýyor.
-            // Ýçerisinde veri tutmayacaksan Singleton kullanabilirsin.
-            // Örneðin sepete ekle mantýðýnda kullanamazsýn.
-
-            //// Car
-            //services.AddSingleton<ICarService, CarManager>();
-            //services.AddSingleton<ICarDal, EfCarDal>();
-            //// Color
-            //services.AddSingleton<IColorService, ColorManager>();
-            //services.AddSingleton<IColorDal, EfColorDal>();
-            //// Brand
-            //services.AddSingleton<IBrandService, BrandManager>();
-            //services.AddSingleton<IBrandDal, EfBrandDal>();
-            //// Rental
-            //services.AddSingleton<IRentalService, RentalManager>();
-            //services.AddSingleton<IRentalDal, EfRentalDal>();
-            //// User
-            //services.AddSingleton<IUserService, UserManager>();
-            //services.AddSingleton<IUserDal, EfUserDal>();
-            //// Customer
-            //services.AddSingleton<ICustomerService, CustomerManager>();
-            //services.AddSingleton<ICustomerDal, EfCustomerDal>();
-
-            //services.AddSingleton<IHttpContextAccessor, IHttpContextAccessor>();
-
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -100,6 +73,8 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
 

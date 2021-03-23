@@ -81,11 +81,11 @@ namespace WebAPI.Controllers
 
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
             else
             {
-                return BadRequest(result.Message);
+                return BadRequest(result);
             }
         }
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 ​import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,15 @@ import { ToastrModule } from "ngx-toastr";
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CarFilterComponent } from './components/car-filter/car-filter.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { CarListComponent } from './components/car-list/car-list.component';
+import { BrandListComponent } from './components/brand-list/brand-list.component';
+import { ColorListComponent } from './components/color-list/color-list.component';
+import { BrandUpdateComponent } from './components/brand-update/brand-update.component';
+import { ColorUpdateComponent } from './components/color-update/color-update.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
+import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/color-add/color-add.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +40,23 @@ import { CarFilterComponent } from './components/car-filter/car-filter.component
     ColorFilterPipe,
     CartSummaryComponent,
     PaymentComponent,
-    CarFilterComponent
+    CarFilterComponent,
+    CarAddComponent,
+    CarListComponent,
+    BrandListComponent,
+    ColorListComponent,
+    BrandUpdateComponent,
+    ColorUpdateComponent,
+    CarUpdateComponent,
+    BrandAddComponent,
+    ColorAddComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({positionClass:"toast-bottom-right"})
   ],
