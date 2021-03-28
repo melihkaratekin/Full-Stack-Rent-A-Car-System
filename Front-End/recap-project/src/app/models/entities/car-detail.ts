@@ -9,4 +9,5 @@ export class CarDetail {
   modelYear:string;
   description:string;
   imagePaths:CarImage[];
+  minFindeksScore:number;
 }

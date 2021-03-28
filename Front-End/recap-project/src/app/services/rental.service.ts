@@ -18,6 +18,13 @@ export class RentalService {
     return this.httpClient.get<ItemResponseModel<Rental>>(this.apiUrl + "/getbyid?rentalId=" + rentalId);
   }
 
+  getIdByRentalInfos(carId:number, customerId:number, rentDate:Date, returnDate:Date):Observable<ItemResponseModel<Rental>> {
+    return this.httpClient.get<ItemResponseModel<Rental>>(this.apiUrl + "/getidbyrentalinfos?carId=" + carId
+                                                                                         + "&customerId=" + customerId
+                                                                                         + "&rentDate=" + rentDate
+                                                                                         + "&returnDate=" + returnDate);
+  }
+
   addRental(rental:Rental):Observable<Rental> {
     return this.httpClient.post<Rental>(this.apiUrl + "/add", rental)
   }

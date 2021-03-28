@@ -1,7 +1,8 @@
 export class Payment {
-  RentalId:number;
-  NameSurname:string;
-  CardNo:string;
-  ExpirationDate:string;
-  Cvc:string;
+  rentalId:number;
+  nameSurname:string;
+  cardNo:string;
+  expirationDate:string;
+  cvc:string;
+  saveCard:boolean;
 }

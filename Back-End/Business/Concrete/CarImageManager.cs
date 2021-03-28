@@ -32,7 +32,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,carimage.add")]
+        //[SecuredOperation("admin,carimage.add")]
         [ValidationAspect(typeof(CarImageValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImage carImage, IFormFile file)

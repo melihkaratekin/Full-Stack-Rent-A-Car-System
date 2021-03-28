@@ -28,11 +28,29 @@ namespace DataAccess.Concrete.EntityFramework
                                  CustomerName = u.FirstName + " " + u.LastName,
                                  BrandName = b.BrandName,
                                  RentDate = r.RentDate,
-                                 ReturnDate = r.ReturnDate,
+                                 ReturnDate = r.ReturnDate
                              };
 
                 return result.ToList();
             }
         }
+
+
+        public FindeksScoreDto GetFindeksScores(int carId, int customerId)
+        {
+            using (DatabaseContext context = new DatabaseContext())
+            {
+                var result = from c in context.Cars.Where(c => c.CarId == carId)
+                             from cu in context.Customers.Where(cu => cu.CustomerId == customerId)
+                             select new FindeksScoreDto
+                             {
+                                 CarMinFindeksScore = c.MinFindeksScore,
+                                 CustomerFindeksScore = cu.FindeksScore,
+                             };
+
+                return result.SingleOrDefault();
+            };
+        }
+
     }
 }

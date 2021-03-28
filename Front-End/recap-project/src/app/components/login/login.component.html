@@ -1,0 +1,19 @@
+<main class="form-signin text-center">
+    <form [formGroup]="loginForm">
+      <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+      <div class="form-group">
+        <input class="form-control" formControlName="email" type="email" id="email" placeholder="E-mail"/>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" formControlName="password" type="password" id="password" placeholder="Password"/>
+      </div>
+
+      <button class="w-100 btn btn-success" (click)="login()">
+        Login
+      </button>
+
+    </form>
+</main>
+

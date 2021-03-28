@@ -16,6 +16,9 @@
 <div class="row" *ngIf="dataLoaded==true">
   <div class="col-md-4" *ngFor="let cardetail of carDetails | carFilter:carFilterText">
     <div class="card">
+      <div class="circleBase type text-center" title="Minimum Findeks Score">
+        <p> {{cardetail.minFindeksScore}} </p>
+      </div>
       <img src="{{cardetail.imagePaths[0].imagePath}}" class="card-img-top" width="auto" height="150px">
       <div class="card-body" style="background-color:ghostwhite;">
         <h5 class="card-title"> <b> {{cardetail.brandName}} {{cardetail.description}} - {{cardetail.modelYear}} </b></h5>
@@ -29,3 +32,5 @@
     </div>
   </div>
 </div>
+
+

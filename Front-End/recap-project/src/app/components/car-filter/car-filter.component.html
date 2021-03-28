@@ -26,11 +26,11 @@
   </div>
 
   <div class="col-sm-6">
-      <a routerLink="/cars/filter/{{brandId}}/{{colorId}}" class="btn btn-info w-100">Filter</a>
+      <a (click)="applyFilter()" class="btn btn-info w-100">Apply</a>
   </div>
 
   <div class="col-sm-6">
-      <a routerLink="/cars" class="btn btn-warning w-100">Clear</a>
+      <a (click)="clearFilter()" class="btn btn-warning w-100">Clear</a>
   </div>
 
 </div>

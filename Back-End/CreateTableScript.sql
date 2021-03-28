@@ -18,6 +18,7 @@ CREATE TABLE Cars (
     ModelYear varchar(255) NOT NULL,
     DailyPrice decimal(18) NOT NULL,
     Description varchar(255) NOT NULL,
+    MinFindeksScore int DEFAULT 0,
     CONSTRAINT PK_Cars PRIMARY KEY (CarId),
     FOREIGN KEY (BrandId) REFERENCES Brands(BrandId),
     FOREIGN KEY (ColorId) REFERENCES Colors(ColorId)
@@ -38,6 +39,7 @@ CREATE TABLE Customers (
     CustomerId int NOT NULL IDENTITY,
     UserId int NOT NULL,
     CompanyName varchar(255) NOT NULL,
+    FindeksScore int DEFAULT 0,
     CONSTRAINT PK_Customers PRIMARY KEY (CustomerId),
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
@@ -87,4 +89,15 @@ CREATE TABLE Payments (
     PaymentDate datetime DEFAULT GETDATE(),
     CONSTRAINT PK_Payments PRIMARY KEY (PaymentId),
     FOREIGN KEY (RentalId) REFERENCES Rentals(RentalId)
+);
+
+CREATE TABLE CreditCards (
+    CreditCardId int NOT NULL IDENTITY,
+    CustomerId int NOT NULL,
+    NameSurname varchar(255) NOT NULL,
+    CardNo varchar(255) NOT NULL,
+    ExpirationDate varchar(255) NOT NULL,
+    Cvc varchar(255) NOT NULL,
+    CONSTRAINT PK_CreditCards PRIMARY KEY (CreditCardId),
+    FOREIGN KEY (CustomerId) REFERENCES Customers(CustomerId)
 );

@@ -27,7 +27,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,user.add")]
+        //[SecuredOperation("admin,user.add")]
         [ValidationAspect(typeof(UserValidator))]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(User user)
@@ -38,7 +38,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,user.delete")]
+        //[SecuredOperation("admin,user.delete")]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Delete(User user)
         {
@@ -48,12 +48,29 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("admin,user.update")]
+        //[SecuredOperation("admin,user.update")]
         [ValidationAspect(typeof(UserValidator))]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {
             _userDal.Update(user);
+
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+
+        //[SecuredOperation("admin,user.updateinfos")]
+        [ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.Get")]
+        public IResult UpdateSpecificInfos(User user)
+        {
+            User userInfos = GetById(user.Id).Data;
+
+            userInfos.FirstName = user.FirstName;
+            userInfos.LastName = user.LastName;
+            userInfos.Email = user.Email;
+
+            _userDal.Update(userInfos);
 
             return new SuccessResult(Messages.UserUpdated);
         }

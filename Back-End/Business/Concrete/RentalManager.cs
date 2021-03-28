@@ -35,7 +35,8 @@ namespace Business.Concrete
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
-            var result = BusinessRules.Run(CarAvailabilityCheck(rental));
+            var result = BusinessRules.Run(CarAvailabilityCheck(rental),
+                                           FindeksScoreAvailabilityCheck(rental));
 
             if (result != null)
             {
@@ -91,6 +92,17 @@ namespace Business.Concrete
 
         [CacheAspect]
         [PerformanceAspect(5)]
+        public IDataResult<Rental> GetIdByRentalInfos(int carId, int customerId, DateTime rentDate, DateTime returnDate)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.CarId == carId
+                                                                && r.CustomerId == customerId
+                                                                && r.RentDate == rentDate
+                                                                && r.ReturnDate == returnDate));
+        }
+
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.MessageListed);
@@ -101,7 +113,7 @@ namespace Business.Concrete
         private IResult CarAvailabilityCheck(Rental rental)
         {
             var overlappingDateList = _rentalDal.GetRentalDetails(r => r.CarId == rental.CarId
-                                                                  && r.RentDate < rental.ReturnDate
+                                                                  && r.RentDate < rental.ReturnDate 
                                                                   && r.ReturnDate > rental.RentDate);
 
             if (overlappingDateList.Count() == 0 )
@@ -111,6 +123,21 @@ namespace Business.Concrete
             else
             {
                 return new ErrorResult(Messages.CarIsAlreadyRented);
+            }
+        }
+
+
+        private IResult FindeksScoreAvailabilityCheck(Rental rental)
+        {
+            var result = _rentalDal.GetFindeksScores(rental.CarId, rental.CustomerId);
+
+            if (result.CarMinFindeksScore <= result.CustomerFindeksScore)
+            {
+                return new SuccessResult();
+            }
+            else
+            {
+                return new ErrorResult(Messages.FindeksScoreIsNotEnough);
             }
         }
 

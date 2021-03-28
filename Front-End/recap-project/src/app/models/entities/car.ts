@@ -6,4 +6,5 @@ export class Car {
   dailyPrice:number;
   modelYear:string;
   description:string;
+  minFindeksScore:number;
 }

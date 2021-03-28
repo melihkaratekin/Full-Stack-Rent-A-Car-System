@@ -27,6 +27,11 @@ import { ColorUpdateComponent } from './components/color-update/color-update.com
 import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { CreditCardListComponent } from './components/credit-card-list/credit-card-list.component';
+import { UserInfosUpdateComponent } from './components/user-infos-update/user-infos-update.component';
+import { UserPasswordUpdateComponent } from './components/user-password-update/user-password-update.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,12 @@ import { ColorAddComponent } from './components/color-add/color-add.component';
     ColorUpdateComponent,
     CarUpdateComponent,
     BrandAddComponent,
-    ColorAddComponent
+    ColorAddComponent,
+    LoginComponent,
+    RegisterComponent,
+    CreditCardListComponent,
+    UserInfosUpdateComponent,
+    UserPasswordUpdateComponent
   ],
   imports: [
     BrowserModule,

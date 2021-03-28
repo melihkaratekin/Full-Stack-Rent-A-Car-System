@@ -22,7 +22,32 @@
         </li>
       </ul>
       <span class="my-2 my-lg-0">
-        <app-cart-summary></app-cart-summary>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" *ngIf="isLoggedIn() == false">
+            <a class="nav-link" routerLink="register">Register</a>
+          </li>
+          <li class="nav-item" *ngIf="isLoggedIn() == false">
+            <a class="nav-link" routerLink="login">Login</a>
+          </li>
+          <div class="dropdown dropleft" *ngIf="isLoggedIn() == true">
+            <li class="nav-item">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ userDetails.firstName + " " + userDetails.lastName }}
+                        <span class="label label-warning"> FS: {{ customerUser.findeksScore }} </span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" routerLink="/updateinfos"><i class="fa fa-edit"></i>&nbsp;Update Account Information</a>
+                  <a class="dropdown-item" routerLink="/updatepassword"><i class="fa fa-lock"></i>&nbsp;&nbsp;Change Password</a>
+                  <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
+                </div>
+            </li>
+
+          </div>
+          <li class="nav-item">
+            <app-cart-summary></app-cart-summary>
+          </li>
+        </ul>
       </span>
     </div>
 

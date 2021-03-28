@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Brand } from 'src/app/models/entities/brand';
 import { Color } from 'src/app/models/entities/color';
@@ -20,8 +21,9 @@ export class CarFilterComponent implements OnInit {
   colorId: Number;
   colorFilterText:string;
 
-  constructor(private brandService: BrandService,
-              private colorService: ColorService) {}
+  constructor(private brandService:BrandService,
+              private colorService:ColorService,
+              private router:Router) {}
 
   ngOnInit(): void {
     this.getBrands();
@@ -56,6 +58,22 @@ export class CarFilterComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  applyFilter() {
+    if(this.brandId != null && this.colorId != null) {
+      this.router.navigate(['/cars/filter/' + this.brandId + "/" + this.colorId])
+    }
+    else if(this.colorId != null) {
+      this.router.navigate(['/cars/filterColor/' + this.colorId])
+    }
+    else if(this.brandId != null) {
+      this.router.navigate(['/cars/filterBrand/' + this.brandId])
+    }
+  }
+
+  clearFilter() {
+    this.router.navigate(['/cars'])
   }
 
 }

@@ -1,0 +1,37 @@
+<div class="row">
+
+  <div class="col-md-12">
+
+    <p style="font-weight: bold;"> Registered Credit Cards </p>
+
+  </div>
+
+  <div class="col-md-12">
+
+    <div class="alert alert-danger" *ngIf="creditCards.length == 0">
+      No credit cart registered.
+    </div>
+
+    <table class="table" *ngIf="creditCards.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">Card No</th>
+          <th scope="col">Expiration Date</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let creditCard of creditCards">
+          <td>{{creditCard.cardNo}}</td>
+          <td>{{creditCard.expirationDate}}</td>
+          <td><button (click)="deleteCreditCard(creditCard)" class="btn btn-danger" style="border-radius: 50px;">Delete</button></td>
+          <td><button (click)="paymentWithThisCreditCard(creditCard)" class="btn btn-success" style="border-radius: 50px;">Use</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+

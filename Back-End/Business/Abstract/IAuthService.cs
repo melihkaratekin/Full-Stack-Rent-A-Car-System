@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
-using Entities.Dtos;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -9,7 +9,8 @@ namespace Business.Abstract
     {
         IDataResult<User> Register(UserForRegisterDto userForRegisterDto);
         IDataResult<User> Login(UserForLoginDto userForLoginDto);
-        IResult UserExists(string email);
         IDataResult<AccessToken> CreateAccessToken(User user);
+        IResult UserExists(string email);
+        IResult ChangePassword(UserForChangingPasswordDto userForChangingPasswordDto);
     }
 }

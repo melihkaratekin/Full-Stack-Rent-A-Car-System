@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../services/local-storage.service';
 import { CarService } from 'src/app/services/car.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import { CarDetail } from 'src/app/models/entities/car-detail';
 import { Rental } from 'src/app/models/entities/rental';
 import { RentalService } from 'src/app/services/rental.service';
 import { NgForm } from '@angular/forms';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-car-detail',
@@ -16,11 +18,13 @@ export class CarDetailComponent implements OnInit {
 
   carDetails:CarDetail[] = [];
   rentalModel:Rental = new Rental();
+  rentalInfos:Rental = new Rental();
   dataLoaded = false;
   totalPrice:any;
 
   constructor(private carService:CarService,
               private rentalService:RentalService,
+              private localStorage:LocalStorageService,
               private toastrService:ToastrService,
               private activatedRoute:ActivatedRoute,
               private router:Router) { }
@@ -49,6 +53,11 @@ export class CarDetailComponent implements OnInit {
     })
   }
 
+  getRentalId() {
+    this.rentalService.getIdByRentalInfos(this.rentalModel.carId, this.rentalModel.customerId, this.rentalModel.rentDate, this.rentalModel.returnDate)
+    .subscribe(response => this.rentalInfos = response.data)
+  }
+
   calculateTotalPrice(rentDate:Date, returnDate:Date, dailyPrice:number) {
     var startDate = new Date(returnDate);
     var endDate = new Date(rentDate);
@@ -68,16 +77,19 @@ export class CarDetailComponent implements OnInit {
   }
 
   addRental(form:NgForm) {
-    this.rentalModel.customerId = 1;
     this.rentalModel.carId = this.carDetails[0].carId;
+    this.rentalModel.customerId = Number(this.localStorage.get("customerId"));
     this.calculateTotalPrice(this.rentalModel.rentDate, this.rentalModel.returnDate, this.carDetails[0].dailyPrice)
     this.rentalService.addRental(this.rentalModel).subscribe(
-      res => {
+      response => {
         this.toastrService.success("The car is rented. You redirect to payment page.");
-        setTimeout(() => { this.router.navigate(['/payment/' + this.rentalModel.rentalId + "/" + this.totalPrice]); }, 3000);
+        this.getRentalId();
+        setTimeout(() => {
+          this.router.navigate(['/payment/' + this.rentalInfos.rentalId + "/" + this.totalPrice + "/" + this.rentalModel.customerId]);
+        }, 3000);
       },
-      err => {
-        this.toastrService.error("The car was rented by another customer. Please select another date range.");
+      responseError => {
+        this.toastrService.error(responseError.error.message);
       }
     )
   }

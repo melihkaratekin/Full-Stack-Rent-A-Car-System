@@ -50,6 +50,8 @@ namespace Business.Constants
         public static string UserDeleted = "User deleted.";
         public static string UserUpdated = "User updated.";
         public static string UserNameInvalid = "User name is invalid.";
+        public static string CurrentPasswordIsWrong = "Your current password is wrong.";
+        public static string PasswordUpdated = "Your password is updated successfully.";
 
         // Rental Messages
         public static string RentalAdded = "Rental added.";
@@ -57,6 +59,7 @@ namespace Business.Constants
         public static string RentalUpdated = "Rental updated.";
         public static string RentalNameInvalid = "Rental name is invalid.";
         public static string CarIsAlreadyRented = "Car is already rented.";
+        public static string FindeksScoreIsNotEnough = "Your findeks score is not enough for this car.";
 
         // Customer Messages
         public static string CustomerAdded = "Customer added.";
@@ -66,5 +69,12 @@ namespace Business.Constants
 
         // Payment Messages
         public static string PaymentAdded = "Payment completed successfully.";
+
+        // Credit Card Messages
+        public static string CardAdded = "Card added.";
+        public static string CardDeleted = "Card deleted.";
+        public static string CardUpdated = "Card updated.";
+        public static string CardIsExists = "Card is exists.";
+        public static string CardIsNotExists = "Card is not exists.";
     }
 }

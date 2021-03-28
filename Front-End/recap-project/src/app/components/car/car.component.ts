@@ -1,9 +1,13 @@
+import { CustomerUser } from './../../models/entities/customer-user';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/entities/car-detail';
 import { CarService } from 'src/app/services/car.service';
 import { CartService } from 'src/app/services/cart.service';
+import { UserService } from 'src/app/services/user.service';
+import { CustomerService } from './../../services/customer.service';
+import { LocalStorageService } from './../../services/local-storage.service';
 
 @Component({
   selector: 'app-car',
@@ -12,6 +16,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CarComponent implements OnInit {
 
+  customerUser:CustomerUser;
   carDetails:CarDetail[] = [];
   dataLoaded = false;
   title = "Car Detail List";
