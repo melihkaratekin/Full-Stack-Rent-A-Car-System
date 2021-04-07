@@ -112,7 +112,7 @@ ng serve --open
 
 <br>
 <h2>
-Contacts
+Contact
 </h2>
 Thank you for taking your time to read. You can contact me from my accounts below. <br>
 <br>
