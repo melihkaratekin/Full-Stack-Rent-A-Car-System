@@ -5,9 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/entities/car-detail';
 import { CarService } from 'src/app/services/car.service';
 import { CartService } from 'src/app/services/cart.service';
-import { UserService } from 'src/app/services/user.service';
-import { CustomerService } from './../../services/customer.service';
-import { LocalStorageService } from './../../services/local-storage.service';
 
 @Component({
   selector: 'app-car',
@@ -29,7 +26,7 @@ export class CarComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
-      if (params["colorId"] && params["brandId"]){
+      if (params["colorId"] && params["brandId"]) {
         this.getCarsByFilter(params["brandId"], params["colorId"]);
       }
       else if (params["brandId"]) {

@@ -7,7 +7,6 @@ import { CarDetail } from 'src/app/models/entities/car-detail';
 import { Rental } from 'src/app/models/entities/rental';
 import { RentalService } from 'src/app/services/rental.service';
 import { NgForm } from '@angular/forms';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-car-detail',
